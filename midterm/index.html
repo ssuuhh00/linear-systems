@@ -32,6 +32,7 @@
         <div class="nav-section">
           <h3>0. 시작하기</h3>
           <a href="#intro" data-page="intro">시험 패턴 & 학습 가이드</a>
+          <a href="#glossary-index" data-page="glossary-index">📚 용어 사전 전체</a>
         </div>
         <div class="nav-section">
           <h3>Ch 2. 신호와 시스템</h3>
@@ -76,8 +77,19 @@
     </main>
   </div>
 
+  <div id="term-backdrop" class="term-backdrop" onclick="window.closeTerm()"></div>
+  <aside id="term-panel" class="term-panel" aria-label="용어 설명 패널">
+    <div class="tp-resize" title="드래그해서 너비 조절"></div>
+    <div class="tp-controls">
+      <button class="tp-back" onclick="window.tpBack()" disabled>← 뒤로</button>
+      <button class="tp-close" onclick="window.closeTerm()" aria-label="닫기">&times;</button>
+    </div>
+    <div class="tp-content"></div>
+  </aside>
+
   <script src="js/components.js"></script>
   <script src="js/router.js"></script>
+  <script src="chapters/glossary.js"></script>
   <script src="chapters/intro.js"></script>
   <script src="chapters/ch2-convolution.js"></script>
   <script src="chapters/ch3-vectorspace.js"></script>

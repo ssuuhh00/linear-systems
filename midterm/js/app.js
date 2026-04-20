@@ -34,23 +34,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (confirm("진도/완료 표시를 모두 초기화할까요?")) {
       localStorage.removeItem("ls-progress");
       window.refreshNav();
-      const id = location.hash.replace("#", "") || "intro";
+      const id = parseHashId(location.hash.replace("#", "") || "intro");
       renderPage(id);
     }
   });
 
+  // Wire up right-side term panel (drag-to-resize)
+  if (window.tpSetupResize) window.tpSetupResize();
+  // Close panel on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && window.closeTerm) window.closeTerm();
+  });
+
   // Initial route
-  const initial = location.hash.replace("#", "") || "intro";
-  if (PAGES[initial]) {
-    renderPage(initial);
-  } else {
-    renderPage("intro");
-  }
+  const initialRaw = location.hash.replace("#", "") || "intro";
+  const initial = parseHashId(initialRaw);
+  renderPage(PAGES[initial] ? initial : "intro");
   window.refreshNav();
 
   // Hash change
   window.addEventListener("hashchange", () => {
-    const id = location.hash.replace("#", "") || "intro";
-    renderPage(id);
+    const idRaw = location.hash.replace("#", "") || "intro";
+    const id = parseHashId(idRaw);
+    renderPage(PAGES[id] ? id : "intro");
   });
 });

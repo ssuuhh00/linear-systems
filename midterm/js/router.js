@@ -1,7 +1,7 @@
 // Tiny hash-based router
 
 const PAGE_ORDER = [
-  "intro",
+  "intro", "glossary-index",
   "ch2-convolution",
   "ch3-vectorspace", "ch3-rank", "ch3-eigen", "ch3-diagonal", "ch3-cayley",
   "ch4-realization", "ch4-solution",
@@ -9,6 +9,11 @@ const PAGE_ORDER = [
   "hw1", "hw2", "hw3", "hw4", "hw5",
   "exam-1", "exam-2",
 ];
+
+// Strip any query-string from hash id.
+function parseHashId(raw) {
+  return (raw || "").split("?")[0];
+}
 
 function neighbors(id) {
   const i = PAGE_ORDER.indexOf(id);
@@ -21,9 +26,10 @@ function neighbors(id) {
 }
 
 window.go = function (id) {
-  if (!PAGES[id]) return;
+  const pageId = parseHashId(id);
+  if (!PAGES[pageId]) return;
   location.hash = id;
-  renderPage(id);
+  renderPage(pageId);
 };
 
 function renderPage(id) {
@@ -45,6 +51,10 @@ function renderPage(id) {
   }
   // Init walkthroughs
   document.querySelectorAll(".walkthrough").forEach(w => renderWalkStep(w.id));
+  // Init row-reduce steppers
+  document.querySelectorAll(".row-reduce").forEach(r => renderRRStep(r.id));
+  // Init 2D matrix transforms
+  document.querySelectorAll(".mx-viz").forEach(m => renderMT(m.id));
   // Update nav highlight
   document.querySelectorAll("#chapter-nav a").forEach(a => {
     a.classList.toggle("active", a.dataset.page === id);

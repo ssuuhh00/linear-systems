@@ -2,12 +2,24 @@ registerPage("intro", "시작하기", () => `
 <h1>📐 선형시스템론 중간고사 대비</h1>
 <p class="lead">강태삼 교수님 / Chen 교재 1~5장 / 1주일 안에 끝낸다.</p>
 
+${profMemo(`
+<ul style="margin:4px 0 0; padding-left:18px;">
+  <li><strong>시험 범위: 5장까지.</strong> 1·2장은 별로 안 나옴 → <a onclick="window.go('ch3-eigen')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Ch3 고유값</a> / <a onclick="window.go('ch4-realization')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Ch4 상태공간</a> / <a onclick="window.go('ch5-bibo')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Ch5 안정도</a>에 올인.</li>
+  <li><strong>HW에서 1문제 이상은 그대로.</strong> 과제 5개 + 책 예제 꼭 다시 풀 것.</li>
+  <li><strong>개념 이해 + 응용</strong>이 출제 기준. 문제는 별로 안 꼬고 거의 그대로 나옴.</li>
+  <li><strong>계산 난이도 상한: 3×3 역행렬</strong> 정도까지. 그 이상 복잡한 산수는 나오지 않음.</li>
+  <li><strong>증명 문제 없음.</strong> 개념 설명 + 직접 계산 위주.</li>
+  <li><strong>계산기 필요 없음.</strong> 손으로 풀 수 있는 수준으로만 출제.</li>
+</ul>
+`)}
+
 <h2>이 사이트 사용법</h2>
 <ul>
   <li>왼쪽 메뉴 순서대로 진행하면 돼.</li>
   <li>각 페이지 끝에 <strong>"학습 완료" 버튼</strong> — 진도 자동 저장 (브라우저 localStorage).</li>
-  <li>퀴즈는 즉시 채점, 워크스루는 <em>"다음"</em> 버튼으로 한 단계씩 펼쳐짐.</li>
+  <li>퀴즈는 즉시 채점. 워크스루는 <em>"다음 단계 ↓"</em>를 누를 때마다 아래로 단계가 <strong>쌓여</strong>가니까 이전 풀이도 그대로 보면서 따라갈 수 있어.</li>
   <li>수식은 KaTeX로 렌더링됨 — 천천히 읽고 손으로도 한 번씩 써봐.</li>
+  <li><strong>밑줄 친 용어</strong>를 누르면 <strong>우측 패널</strong>에서 설명이 펼쳐져 — 페이지 이동 없이 바로 확인하고 닫으면 원래 자리 그대로. 🌱 초록 토글은 선행 선형대수, 🔷 파랑 토글은 개념 심화야 — 아는 내용은 건너뛰면 돼.</li>
 </ul>
 
 <h2>강태삼 교수님 출제 패턴 (2013, 2015 족보 기준)</h2>
