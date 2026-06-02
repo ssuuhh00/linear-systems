@@ -2,11 +2,10 @@
 
 const PAGE_ORDER = [
   "intro", "glossary-index",
-  "ch2-convolution",
-  "ch3-vectorspace", "ch3-rank", "ch3-eigen", "ch3-diagonal", "ch3-cayley",
-  "ch4-realization", "ch4-solution",
-  "ch5-bibo", "ch5-internal",
-  "hw1", "hw2", "hw3", "hw4", "hw5",
+  "ch6-controllability", "ch6-observability", "ch6-stabilizable",
+  "ch7-coprime",
+  "ch8-feedback", "ch8-tracking", "ch8-observer",
+  "ch9-poleplacement", "ch9-internal-model", "ch9-model-matching",
   "exam-1", "exam-2",
 ];
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>선형시스템론 인터랙티브 노트 — 강태삼 교수님 중간 대비</title>
+  <title>선형시스템론 인터랙티브 노트 — 강태삼 교수님 기말 대비</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -14,7 +14,7 @@
   <header class="topbar">
     <div class="brand">
       <span class="logo">📐</span>
-      <span>선형시스템론 노트</span>
+      <span>선형시스템론 노트 · 기말</span>
     </div>
     <div class="meta">
       <span id="progress-pill">진도 0%</span>
@@ -35,34 +35,26 @@
           <a href="#glossary-index" data-page="glossary-index">📚 용어 사전 전체</a>
         </div>
         <div class="nav-section">
-          <h3>Ch 2. 신호와 시스템</h3>
-          <a href="#ch2-convolution" data-page="ch2-convolution">합성곱(Convolution)</a>
+          <h3>Ch 6. 가제어성 · 가관측성</h3>
+          <a href="#ch6-controllability" data-page="ch6-controllability">Controllability</a>
+          <a href="#ch6-observability" data-page="ch6-observability">Observability & 쌍대성</a>
+          <a href="#ch6-stabilizable" data-page="ch6-stabilizable">Stabilizable · Detectable · Index</a>
         </div>
         <div class="nav-section">
-          <h3>Ch 3. 선형대수</h3>
-          <a href="#ch3-vectorspace" data-page="ch3-vectorspace">Vector Space 기초</a>
-          <a href="#ch3-rank" data-page="ch3-rank">Rank · Null Space · 일반해</a>
-          <a href="#ch3-eigen" data-page="ch3-eigen">Eigenvalue · Eigenvector</a>
-          <a href="#ch3-diagonal" data-page="ch3-diagonal">Diagonalization</a>
-          <a href="#ch3-cayley" data-page="ch3-cayley">Cayley-Hamilton & e^At</a>
+          <h3>Ch 7. 최소실현 · 서로소분수</h3>
+          <a href="#ch7-coprime" data-page="ch7-coprime">Minimal Realization & Coprimeness</a>
         </div>
         <div class="nav-section">
-          <h3>Ch 4. 상태공간</h3>
-          <a href="#ch4-realization" data-page="ch4-realization">State-Space Realization</a>
-          <a href="#ch4-solution" data-page="ch4-solution">상태방정식 풀이</a>
+          <h3>Ch 8. 상태궤환 · 상태추정기</h3>
+          <a href="#ch8-feedback" data-page="ch8-feedback">State Feedback 극배치</a>
+          <a href="#ch8-tracking" data-page="ch8-tracking">Robust Tracking & 적분제어</a>
+          <a href="#ch8-observer" data-page="ch8-observer">State Estimator & Separation</a>
         </div>
         <div class="nav-section">
-          <h3>Ch 5. 안정도</h3>
-          <a href="#ch5-bibo" data-page="ch5-bibo">BIBO Stability</a>
-          <a href="#ch5-internal" data-page="ch5-internal">Internal · Lyapunov</a>
-        </div>
-        <div class="nav-section">
-          <h3>📝 과제 다시 풀기</h3>
-          <a href="#hw1" data-page="hw1">HW1 — Ch2 신호/시스템</a>
-          <a href="#hw2" data-page="hw2">HW2 — Ch3 선형대수 ①</a>
-          <a href="#hw3" data-page="hw3">HW3 — Ch3 선형대수 ②</a>
-          <a href="#hw4" data-page="hw4">HW4 — Ch4 Realization</a>
-          <a href="#hw5" data-page="hw5">HW5 — Ch5 Stability</a>
+          <h3>Ch 9. 극배치 · 모델매칭</h3>
+          <a href="#ch9-poleplacement" data-page="ch9-poleplacement">Coprime Fraction 극배치</a>
+          <a href="#ch9-internal-model" data-page="ch9-internal-model">Robust Tracking & Internal Model</a>
+          <a href="#ch9-model-matching" data-page="ch9-model-matching">Model Matching · Total Stability</a>
         </div>
         <div class="nav-section">
           <h3>📝 모의고사</h3>
@@ -91,21 +83,16 @@
   <script src="js/router.js"></script>
   <script src="chapters/glossary.js"></script>
   <script src="chapters/intro.js"></script>
-  <script src="chapters/ch2-convolution.js"></script>
-  <script src="chapters/ch3-vectorspace.js"></script>
-  <script src="chapters/ch3-rank.js"></script>
-  <script src="chapters/ch3-eigen.js"></script>
-  <script src="chapters/ch3-diagonal.js"></script>
-  <script src="chapters/ch3-cayley.js"></script>
-  <script src="chapters/ch4-realization.js"></script>
-  <script src="chapters/ch4-solution.js"></script>
-  <script src="chapters/ch5-bibo.js"></script>
-  <script src="chapters/ch5-internal.js"></script>
-  <script src="chapters/hw1.js"></script>
-  <script src="chapters/hw2.js"></script>
-  <script src="chapters/hw3.js"></script>
-  <script src="chapters/hw4.js"></script>
-  <script src="chapters/hw5.js"></script>
+  <script src="chapters/ch6-controllability.js"></script>
+  <script src="chapters/ch6-observability.js"></script>
+  <script src="chapters/ch6-stabilizable.js"></script>
+  <script src="chapters/ch7-coprime.js"></script>
+  <script src="chapters/ch8-feedback.js"></script>
+  <script src="chapters/ch8-tracking.js"></script>
+  <script src="chapters/ch8-observer.js"></script>
+  <script src="chapters/ch9-poleplacement.js"></script>
+  <script src="chapters/ch9-internal-model.js"></script>
+  <script src="chapters/ch9-model-matching.js"></script>
   <script src="chapters/exam-1.js"></script>
   <script src="chapters/exam-2.js"></script>
   <script src="js/app.js"></script>
