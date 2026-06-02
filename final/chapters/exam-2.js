@@ -2,9 +2,7 @@ registerPage("exam-2", "모의고사 2", () => `
 <h1>📝 모의고사 2</h1>
 <p class="lead">총 100점 · 6문제. 모의고사 1과 같은 난이도, 다른 숫자·유형 조합 (coprimeness, duality, internal model, separation 포함).</p>
 
-${examTimer(80)}
-
-${note(`<strong>응시 안내:</strong> 제한시간 <strong>80분</strong>. 모의고사 1과 동일 기조 — 개념 정의 + 표준 절차 적용. 행렬 2×2~3×3, 손계산 가능. 배점 큰 문제 3·4(각 20점)에 시간 배분.`, "info")}
+${note(`<strong>응시 안내:</strong> 모의고사 1과 동일 기조 — 개념 정의 + 표준 절차 적용. 행렬 2×2~3×3, 손계산 가능. 배점 큰 문제 3·4(각 20점)를 비중 있게.`, "info")}
 
 ${examProblem({
   num: 1,

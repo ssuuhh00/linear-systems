@@ -2,9 +2,7 @@ registerPage("exam-1", "모의고사 1", () => `
 <h1>📝 모의고사 1</h1>
 <p class="lead">총 100점 · 6문제. 기말 전 범위(Ch6~Ch9) 골고루. 종이/펜으로 풀고, 다 푼 뒤 답안 펼쳐 채점.</p>
 
-${examTimer(80)}
-
-${note(`<strong>응시 안내:</strong> 제한시간 <strong>80분</strong>. 계산기 없이 손계산 가능한 수준이지만 풀이 과정도 같이 적기(부분점수). 행렬은 모두 2×2~3×3. 배점이 큰 <strong>문제 5(Coprime fraction 극배치, 25점)</strong>에 시간을 더 배분하라.`, "info")}
+${note(`<strong>응시 안내:</strong> 계산기 없이 손계산 가능한 수준이지만 풀이 과정도 같이 적기(부분점수). 행렬은 모두 2×2~3×3. 배점이 큰 <strong>문제 5(Coprime fraction 극배치, 25점)</strong>를 비중 있게 풀어라.`, "info")}
 
 ${examProblem({
   num: 1,
