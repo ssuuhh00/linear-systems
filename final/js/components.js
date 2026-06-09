@@ -14,9 +14,9 @@ function defCard(title, body) {
   </div>`;
 }
 
-// Collapsible details
+// Static block (formerly collapsible — fold removed, always visible).
 function collapse(summary, body) {
-  return `<details><summary>${summary}</summary><div class="body">${body}</div></details>`;
+  return `<div class="callout"><div class="callout-head">${summary}</div><div class="callout-body">${body}</div></div>`;
 }
 
 // Note callouts
@@ -169,6 +169,52 @@ window.walkReset = function (id) {
   root.dataset.revealed = 1;
   renderWalkthrough(id);
   root.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+// ============================================================
+// "직접 풀어보기" — 2단 접기.
+//  · 바깥: 헤더 클릭 → 카드 전체(문제+풀이)를 접었다 폄. (기본 펼침)
+//  · 안쪽: "풀이 보기" 버튼 → 풀이만 한 번에 펼침(단계별 reveal 없음).
+// steps: [{ title, body }] — walkthrough와 같은 형식이라 그대로 교체 가능.
+// ============================================================
+let tryCounter = 0;
+function tryIt(label, problem, steps) {
+  const tid = `tryit-${++tryCounter}`;
+  const body = steps.map((s, i) => `
+    <div class="tryit-step">
+      <div class="tryit-step-title">Step ${i + 1}. ${s.title}</div>
+      <div class="tryit-step-body">${s.body}</div>
+    </div>`).join("");
+  return `<div class="tryit collapsed" id="${tid}-card">
+    <div class="tryit-head" onclick="window.toggleTryitCard('${tid}')" title="클릭해서 접기/펴기">
+      <span class="tryit-badge">✍️ 직접 풀어보기</span>${label ? `<span class="tryit-label">${label}</span>` : ""}
+      <span class="tryit-caret">▾</span>
+    </div>
+    <div class="tryit-body">
+      ${problem ? `<div class="tryit-problem">${problem}</div>` : ""}
+      <button class="tryit-toggle" onclick="window.toggleTryit('${tid}')">풀이 보기 ▾</button>
+      <div class="tryit-sol" id="${tid}">${body}</div>
+    </div>
+  </div>`;
+}
+
+window.toggleTryitCard = function (tid) {
+  const card = document.getElementById(`${tid}-card`);
+  if (card) card.classList.toggle("collapsed");
+};
+
+window.toggleTryit = function (tid) {
+  const el = document.getElementById(tid);
+  if (!el) return;
+  const shown = el.classList.toggle("shown");
+  const card = el.closest(".tryit");
+  const btn = card && card.querySelector(".tryit-toggle");
+  if (btn) btn.textContent = shown ? "풀이 접기 ▴" : "풀이 보기 ▾";
+  if (shown && window.renderMathInElement) {
+    window.renderMathInElement(el, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }],
+    });
+  }
 };
 
 // Page complete button
@@ -341,12 +387,10 @@ function pageNav(prev, next) {
 // concept: 원내용 심화. prereq: 선행 선형대수 복습.
 // ============================================================
 function concept(summary, body, opts = {}) {
-  const open = opts.open ? "open" : "";
-  return `<details class="concept" ${open}><summary>${summary}</summary><div class="body">${body}</div></details>`;
+  return `<div class="callout concept"><div class="callout-head">🔎 ${summary}</div><div class="callout-body">${body}</div></div>`;
 }
 function prereq(summary, body, opts = {}) {
-  const open = opts.open ? "open" : "";
-  return `<details class="prereq" ${open}><summary>${summary}</summary><div class="body">${body}</div></details>`;
+  return `<div class="callout prereq"><div class="callout-head">📘 ${summary}</div><div class="callout-body">${body}</div></div>`;
 }
 // Backward-compat alias for older pages.
 const bgKnow = prereq;
@@ -354,6 +398,28 @@ const bgKnow = prereq;
 // Professor-memo block (orange) — captures spoken exam hints.
 function profMemo(body) {
   return `<div class="prof-memo"><div class="prof-memo-label">💬 교수님 코멘트</div><div class="prof-memo-body">${body}</div></div>`;
+}
+
+// ============================================================
+// Recall block (green) — 선행(중간고사) 개념 짧은 요약 + 중간 노트 리디렉션.
+// topic: 무엇을 복습하는지 (제목).
+// summary: 핵심 한두 줄 요약 (HTML+KaTeX). 생략 가능.
+// page: 중간 노트 페이지 id (예: "ch3-eigen"). 여러 개면 [[page,label], ...] 배열.
+// linkLabel: 단일 page일 때 링크 문구.
+// → 중간 노트(midterm SPA)는 별도 탭에서 열어 final 진도/상태를 잃지 않게 한다.
+// ============================================================
+function recall(topic, summary, page, linkLabel) {
+  const links = Array.isArray(page)
+    ? page
+    : (page ? [[page, linkLabel || "중간 노트에서 복습"]] : []);
+  const linkHtml = links.map(([p, l]) =>
+    `<a class="recall-link" href="../midterm/index.html#${p}" target="_blank" rel="noopener">📒 ${l} ↗</a>`
+  ).join("");
+  return `<div class="recall">
+    <div class="recall-head"><span class="recall-badge">🌱 중간 복습</span>${topic ? ` ${topic}` : ""}</div>
+    ${summary ? `<div class="recall-body">${summary}</div>` : ""}
+    ${linkHtml ? `<div class="recall-links">${linkHtml}</div>` : ""}
+  </div>`;
 }
 
 // ============================================================
@@ -382,10 +448,18 @@ function tpRenderTerm(key) {
       const gr = (window.GLOSSARY || {})[k];
       return gr ? `<span class="term-link" onclick="window.openTerm('${k}')">${gr.term}</span>` : "";
     }).filter(Boolean).join("");
+    // Optional midterm-note redirect links: g.midterm = "ch3-eigen" or [[page,label],...]
+    const mtList = g.midterm
+      ? (Array.isArray(g.midterm) ? g.midterm : [[g.midterm, "중간 노트에서 자세히"]])
+      : [];
+    const midterm = mtList.map(([p, l]) =>
+      `<a class="tp-midterm-link" href="../midterm/index.html#${p}" target="_blank" rel="noopener">📒 ${l} ↗</a>`
+    ).join("");
     content.innerHTML = `
       <div class="tp-term">${g.term}${g.ko ? `<span class="tp-ko">${g.ko}</span>` : ""}</div>
       ${g.short ? `<div class="tp-short">${g.short}</div>` : ""}
       <div class="tp-body">${g.definition || ""}</div>
+      ${midterm ? `<div class="tp-midterm"><h4>🌱 중간고사 복습</h4>${midterm}</div>` : ""}
       ${related ? `<div class="tp-related"><h4>관련 용어</h4>${related}</div>` : ""}
     `;
   }

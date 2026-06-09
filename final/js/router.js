@@ -1,7 +1,7 @@
 // Tiny hash-based router
 
 const PAGE_ORDER = [
-  "intro", "glossary-index",
+  "intro", "overview", "glossary-index",
   "ch6-controllability", "ch6-observability", "ch6-stabilizable",
   "ch7-coprime",
   "ch8-feedback", "ch8-tracking", "ch8-observer",

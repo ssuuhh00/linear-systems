@@ -459,6 +459,57 @@ details.concept .body, details.prereq .body {
   margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
 }
 
+/* Static callouts (concept/prereq/collapse — fold removed, always visible) */
+.callout {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px 16px; margin: 12px 0;
+}
+.callout .callout-head { font-weight: 600; margin-bottom: 8px; }
+.callout .callout-body { font-size: 14.5px; line-height: 1.7; }
+.callout.concept { border-left: 3px solid var(--accent); background: rgba(37, 99, 235, 0.04); }
+.callout.concept .callout-head { color: var(--accent); }
+.callout.prereq { border-left: 3px solid var(--ok); background: rgba(21, 128, 61, 0.04); }
+.callout.prereq .callout-head { color: var(--ok); }
+[data-theme="dark"] .callout.concept { background: rgba(88, 166, 255, 0.05); }
+[data-theme="dark"] .callout.prereq { background: rgba(63, 185, 80, 0.05); }
+
+/* ============================================================
+   "직접 풀어보기" — 문제는 보이고 풀이는 접힘 (스포일러식)
+   ============================================================ */
+.tryit {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-left: 3px solid var(--warn); border-radius: 8px;
+  padding: 14px 18px; margin: 20px 0;
+}
+.tryit-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; cursor: pointer; user-select: none; }
+.tryit-caret { margin-left: auto; color: var(--text-dim); font-size: 13px; transition: transform 0.2s; }
+.tryit-head:hover .tryit-caret { color: var(--warn); }
+.tryit.collapsed .tryit-caret { transform: rotate(-90deg); }
+.tryit.collapsed .tryit-body { display: none; }
+.tryit-badge {
+  font-size: 12px; font-weight: 600; color: #fff; background: var(--warn);
+  padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+}
+[data-theme="dark"] .tryit-badge { color: #0f1419; }
+.tryit-label { font-weight: 600; color: var(--text); }
+.tryit-problem {
+  background: var(--bg-3); border: 1px solid var(--border); border-radius: 6px;
+  padding: 12px 16px; margin: 10px 0 12px; line-height: 1.8; overflow-x: auto;
+}
+.tryit-toggle {
+  background: var(--warn); color: #fff; border: 1px solid var(--warn);
+  padding: 7px 16px; border-radius: 6px; cursor: pointer;
+  font-family: inherit; font-size: 13px; font-weight: 500;
+}
+[data-theme="dark"] .tryit-toggle { color: #0f1419; }
+.tryit-toggle:hover { opacity: 0.9; }
+.tryit-sol { display: none; margin-top: 14px; border-top: 1px solid var(--border); }
+.tryit-sol.shown { display: block; animation: walkFadeIn 0.28s ease; }
+.tryit-step { padding: 12px 4px; border-bottom: 1px dashed var(--border); }
+.tryit-step:last-child { border-bottom: none; }
+.tryit-step-title { color: var(--accent-2); font-weight: 600; margin-bottom: 6px; }
+.tryit-step-body { line-height: 1.7; }
+
 /* Professor-memo block (orange) */
 .prof-memo {
   margin: 18px 0; padding: 14px 18px;
@@ -468,6 +519,80 @@ details.concept .body, details.prereq .body {
 .prof-memo-label { font-weight: 600; color: var(--warn); margin-bottom: 6px; font-size: 13px; }
 .prof-memo-body { font-size: 14.5px; line-height: 1.7; }
 [data-theme="dark"] .prof-memo { background: rgba(240, 136, 62, 0.1); }
+
+/* ============================================================
+   Recall block (green) — 중간고사 선행 개념 요약 + 리디렉션
+   ============================================================ */
+.recall {
+  margin: 16px 0; padding: 12px 16px;
+  background: rgba(21, 128, 61, 0.05);
+  border: 1px solid var(--border); border-left: 3px solid var(--ok);
+  border-radius: 8px;
+}
+[data-theme="dark"] .recall { background: rgba(63, 185, 80, 0.07); }
+.recall-head { font-weight: 600; color: var(--ok); font-size: 14px; }
+.recall-badge {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  background: var(--ok); color: #fff; padding: 1px 8px; border-radius: 10px;
+  margin-right: 6px; vertical-align: middle;
+}
+[data-theme="dark"] .recall-badge { color: #0f1419; }
+.recall-body { font-size: 14px; line-height: 1.65; margin-top: 7px; color: var(--text); }
+.recall-links { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 8px; }
+.recall-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12.5px; font-weight: 500; text-decoration: none;
+  color: var(--ok); background: var(--bg-2);
+  border: 1px solid var(--ok); border-radius: 999px; padding: 4px 12px;
+}
+.recall-link:hover { background: var(--ok); color: #fff; }
+[data-theme="dark"] .recall-link:hover { color: #0f1419; }
+
+/* ============================================================
+   Roadmap (전체 흐름) — interactive SVG + flow narrative
+   ============================================================ */
+.roadmap {
+  margin: 20px 0 8px; padding: 8px;
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.roadmap svg { width: 100%; height: auto; display: block; }
+.roadmap .rm-node { cursor: pointer; }
+.roadmap .rm-node rect {
+  fill: var(--bg-3); stroke: var(--border); stroke-width: 1.5;
+  transition: fill 0.15s, stroke 0.15s;
+}
+.roadmap .rm-node:hover rect { stroke: var(--accent); stroke-width: 2.5; fill: var(--bg); }
+.roadmap .rm-node .rm-ch { font-weight: 700; font-size: 15px; fill: var(--accent); }
+.roadmap .rm-node .rm-title { font-weight: 600; font-size: 13px; fill: var(--text); }
+.roadmap .rm-node .rm-sub { font-size: 11px; fill: var(--text-dim); }
+.roadmap .rm-edge { stroke: var(--text-dim); stroke-width: 2; fill: none; opacity: 0.55; }
+.roadmap .rm-arrowhead { fill: var(--text-dim); opacity: 0.6; }
+.roadmap .rm-edge-label { font-size: 11px; fill: var(--text-dim); font-style: italic; }
+.roadmap .rm-band { font-size: 11px; font-weight: 600; fill: var(--text-dim); letter-spacing: 0.5px; }
+.roadmap .rm-hint { font-size: 11px; fill: var(--text-dim); text-anchor: middle; }
+
+/* Flow cards (무엇을 배우나 / 그걸로 뭘 하나) */
+.flow-grid { display: grid; gap: 14px; margin: 16px 0; }
+.flow-card {
+  border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 10px; padding: 14px 18px; background: var(--bg-2);
+}
+.flow-card h3 { margin: 0 0 4px; font-size: 16px; }
+.flow-card .fc-ch { color: var(--accent); font-weight: 700; margin-right: 6px; }
+.flow-card .fc-row { display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; margin-top: 8px; font-size: 14px; }
+.flow-card .fc-k { font-weight: 600; color: var(--text-dim); white-space: nowrap; }
+.flow-card .fc-jump {
+  display: inline-block; margin-top: 10px; font-size: 12.5px; font-weight: 500;
+  color: var(--accent); cursor: pointer; text-decoration: none;
+}
+.flow-card .fc-jump:hover { text-decoration: underline; }
+.flow-card.c7 { border-left-color: var(--accent-2); }
+.flow-card.c7 .fc-ch, .flow-card.c7 .fc-jump { color: var(--accent-2); }
+.flow-card.c8 { border-left-color: var(--warn); }
+.flow-card.c8 .fc-ch, .flow-card.c8 .fc-jump { color: var(--warn); }
+.flow-card.c9 { border-left-color: var(--danger); }
+.flow-card.c9 .fc-ch, .flow-card.c9 .fc-jump { color: var(--danger); }
 
 /* ============================================================
    Inline term link (opens right-side panel)
@@ -578,6 +703,25 @@ details.concept .body, details.prereq .body {
   background: var(--bg-3); border: 1px solid var(--border);
 }
 .term-panel .tp-related .term-link:hover { border-color: var(--accent); }
+
+.term-panel .tp-midterm {
+  margin-top: 20px; padding: 12px 14px;
+  background: rgba(21, 128, 61, 0.06); border: 1px solid var(--border);
+  border-left: 3px solid var(--ok); border-radius: 8px;
+}
+[data-theme="dark"] .term-panel .tp-midterm { background: rgba(63, 185, 80, 0.08); }
+.term-panel .tp-midterm h4 {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--ok); margin: 0 0 8px; font-weight: 600;
+}
+.term-panel .tp-midterm-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin: 3px 6px 3px 0; padding: 4px 11px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 500; text-decoration: none;
+  color: var(--ok); background: var(--bg-2); border: 1px solid var(--ok);
+}
+.term-panel .tp-midterm-link:hover { background: var(--ok); color: #fff; }
+[data-theme="dark"] .term-panel .tp-midterm-link:hover { color: #0f1419; }
 
 .term-backdrop {
   position: fixed; inset: 53px 0 0 0; z-index: 199;
