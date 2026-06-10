@@ -72,7 +72,46 @@ ${tryIt("", `$A=\\begin{bmatrix}0 & 1 \\\\ -2 & -3\\end{bmatrix},\\ C=[1\\ \\ 0]
   <tr><td>쌍대</td><td>$\\{A^T,B^T\\}$ obsv</td><td>$\\{A^T,C^T\\}$ ctrb</td></tr>
 </table>
 
-<h2>7. 체크</h2>
+<h2>7. Jordan form으로 c/o 판정 (교수님 강조)</h2>
+${defCard("Jordan block 독립성 판정", `
+대각화·Jordan형으로 바꿔놓으면 c/o를 <strong>eigenvalue별로</strong> 눈으로 읽을 수 있음(${term("jordan-form-test", "Jordan 판정")}).
+<br><br>
+같은 eigenvalue $\\lambda$에 ${term("rank")}-결손만큼 <strong>Jordan block이 여러 개</strong> 생김(block 수 $=$ 기하적 중복도 $=n-\\rho(A-\\lambda I)$). 그 $\\lambda$에 대해:
+<ul>
+<li><strong>Controllable</strong> ⟺ 각 block의 <strong>마지막 행</strong>에 해당하는 $B$의 행들이 서로 <strong>independent</strong>.</li>
+<li><strong>Observable</strong> ⟺ 각 block의 <strong>첫 열</strong>에 해당하는 $C$의 열들이 서로 <strong>independent</strong>.</li>
+</ul>
+직관: 한 eigenvalue에 block이 $k$개면 입력이 그 $k$개를 <strong>각각 독립으로</strong> 흔들 수 있어야 전부 제어됨 — 그래서 그 $\\lambda$가 controllable하려면 입력 채널이 최소 $k$개($\\rho(B)\\ge k$) 필요. block이 하나뿐인 $\\lambda$는 해당 행/열이 <strong>0만 아니면</strong> 됨. (이게 PBH가 각 $\\lambda$에서 rank를 보는 것과 같은 얘기 — Jordan은 그 구조를 눈에 보이게 만든 것.)
+`)}
+
+<h2>8. ⭐ 족보 — 3×3 c/o 판정</h2>
+${tryIt("", `$$\\dot{\\mathbf x}=\\begin{bmatrix}1&1&0\\\\0&1&0\\\\0&1&2\\end{bmatrix}\\mathbf x+\\begin{bmatrix}0\\\\1\\\\0\\end{bmatrix}u,\\qquad y=[\\,1\\ 0\\ 0\\,]\\mathbf x$$ (족보 2015) controllability·observability를 판정하라.`, [
+  {
+    title: "eigenvalue & Jordan 구조",
+    body: `상삼각 비슷 → $\\det(A-\\lambda I)=(2-\\lambda)(1-\\lambda)^2$ → $\\lambda=2$(단순), $\\lambda=1$(중복 2).<br>
+    $\\lambda=1$: $A-I=\\begin{bmatrix}0&1&0\\\\0&0&0\\\\0&1&1\\end{bmatrix}$, $\\rho=2$ → block 수 $=3-2=1$ → <strong>크기 2짜리 Jordan block 하나</strong>. $\\lambda=2$는 $1\\times1$.`
+  },
+  {
+    title: "Controllability — PBH로 각 $\\lambda$",
+    body: `$\\lambda=1$: $[A-I\\ \\ B]=\\begin{bmatrix}0&1&0&0\\\\0&0&0&1\\\\0&1&1&0\\end{bmatrix}$ → rank 3 ✓.<br>
+    $\\lambda=2$: $[A-2I\\ \\ B]=\\begin{bmatrix}-1&1&0&0\\\\0&-1&0&1\\\\0&1&0&0\\end{bmatrix}$ → rank 3 ✓.<br>
+    두 $\\lambda$ 모두 full rank → <strong>controllable ✓</strong>. (각 $\\lambda$가 block 1개뿐이라 해당 행이 0만 아니면 OK인 상황.)`
+  },
+  {
+    title: "Observability — $\\mathcal O$ rank",
+    body: `$CA=[\\,1\\ 1\\ 0\\,]$, $CA^2=[\\,1\\ 2\\ 0\\,]$ → $\\mathcal O=\\begin{bmatrix}1&0&0\\\\1&1&0\\\\1&2&0\\end{bmatrix}$. 3열이 전부 0 → $\\rho=2<3$ → <strong>NOT observable</strong>.`
+  },
+  {
+    title: "어느 mode가 안 보이나 — PBH",
+    body: `$\\lambda=2$: $\\begin{bmatrix}A-2I\\\\C\\end{bmatrix}=\\begin{bmatrix}-1&1&0\\\\0&-1&0\\\\0&1&0\\\\1&0&0\\end{bmatrix}$ → 3열 전부 0 → rank $2<3$ → <strong>$\\lambda=2$ mode가 unobservable</strong>. 출력 $y=x_1$인데 $\\lambda=2$ mode는 $x_3$ 방향이라 $y$에 전혀 안 잡힘. 앞 단계에서 이 mode는 controllable이었으니 결국 <strong>cō (controllable · unobservable)</strong> 부분임.`
+  },
+  {
+    title: "결론",
+    body: `<strong>controllable이지만 observable은 아님</strong>($\\lambda=2$ mode가 cō). 전달함수로 보면 이 mode는 약분돼 안 나타남 → 이 실현은 minimal이 아님. controllability와 observability는 <strong>완전히 독립</strong>이라 항상 따로 판정해야 한다는 걸 보여주는 예.`
+  }
+])}
+
+<h2>9. 체크</h2>
 ${mcQuiz(
   "Duality에 따라 $\\{A,C\\}$가 observable인 것과 동치인 것은?",
   ["$\\{A,C\\}$가 controllable", "$\\{A^T,C^T\\}$가 controllable", "$\\{A^T,C\\}$가 observable", "$\\{A,C^T\\}$가 controllable"],

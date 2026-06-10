@@ -74,6 +74,32 @@ ${tryIt("", `교수님이 두 번 푼 그 예제. $G(s)=\\dfrac{s-2}{s^2-1}$ ($n
   },
 ])}
 
+${tryIt("족보 2013 Q3-d·e", `Q3의 $A=\\begin{bmatrix}-1&1\\\\0&1\\end{bmatrix},\\ B=\\begin{bmatrix}0\\\\1\\end{bmatrix},\\ C=[1\\ 0]$을 <strong>output feedback</strong>(전달함수 제어기)으로 극 $\\{-2,-3\\}$에 배치하라. 그리고 a)의 state feedback과 비교(e).`, [
+  {
+    title: "플랜트 전달함수 $G(s)$",
+    body: `$sI-A=\\begin{bmatrix}s+1&-1\\\\0&s-1\\end{bmatrix}$, $(sI-A)^{-1}B=\\dfrac1{(s+1)(s-1)}\\begin{bmatrix}1\\\\s+1\\end{bmatrix}$ →
+    $$G(s)=C(sI-A)^{-1}B=\\frac{1}{s^2-1}.$$
+    $N=1,\\ D=s^2-1$ ($n=2$), coprime ✓.`
+  },
+  {
+    title: "제어기 차수 + 극 개수",
+    body: `$m=n-1=1$ → 제어기 $C(s)=\\dfrac{B_c}{A_c}=\\dfrac{b_0+b_1s}{a_0+a_1s}$. 폐루프 차수 $n+m=3$ → <strong>극 3개</strong>가 필요함. 원하는 $-2,-3$에 더해 셋째 극을 stable하게(예: $-4$) 잡아야 함.<br>
+    $$F=(s+2)(s+3)(s+4)=s^3+9s^2+26s+24.$$`
+  },
+  {
+    title: "$F=DA_c+NB_c$ 전개·비교",
+    body: `$$DA_c+NB_c=(s^2-1)(a_0+a_1s)+(b_0+b_1s)=a_1s^3+a_0s^2+(b_1-a_1)s+(b_0-a_0).$$
+    $s^3{:}\\ a_1=1$, $s^2{:}\\ a_0=9$, $s^1{:}\\ b_1-a_1=26\\Rightarrow b_1=27$, $s^0{:}\\ b_0-a_0=24\\Rightarrow b_0=33$.
+    $$\\boxed{C(s)=\\frac{27s+33}{s+9}}$$`
+  },
+  {
+    title: "(e) state feedback(a)과 비교",
+    body: `<strong>a) state feedback</strong> $u=-Kx$: 정적 이득 $K=[2\\ 5]$ 하나로 극 2개를 바로 배치 — 단 <strong>상태 $x$ 전부 측정</strong> 필요.<br>
+    <strong>d) output feedback</strong>: 출력 $y$만 쓰지만 <strong>1차 동적 제어기</strong>(분모 $s+9$)가 붙어 폐루프 차수가 3으로 늘고 <strong>여분의 극을 추가 지정</strong>해야 함.<br>
+    본질: output feedback ≈ <strong>state feedback + observer</strong>(추정기로 못 보는 상태를 복원). 측정 비용 ↓ 대신 제어기 동역학·차수 ↑ — ${term("separation-principle", "separation")}로 둘을 따로 설계한 게 이 동적 제어기와 같은 얘기.`
+  }
+])}
+
 <h2>4. Mason's Gain Rule (보조 도구)</h2>
 ${defCard("Mason 이득 공식", `
 블록선도에서 입력→출력 전달함수를 한 번에 구하는 공식 — ${term("mason-gain", "Mason's Gain Rule")}:

@@ -1,6 +1,7 @@
 registerPage("ch7-coprime", "Minimal Realization & Coprimeness", () => `
 <h1>Ch 7 — Minimal Realization & Coprimeness (최소실현·서로소)</h1>
-<p class="lead">${tag("출제 유력", "exam")} ${tag("개념", "concept")} coprimeness 판정은 족보 단골(15점 패턴)이고, minimal realization 차수 묻기도 자주 나옴. 무엇보다 <strong>Ch9 극배치의 해 존재 조건이 바로 coprime</strong>이라 여기서 개념을 확실히 잡아야 함.</p>
+${note(`<strong>⚠️ 이번 기말 시험범위 아님</strong> — 교수님 복습강의(0609)에서 시험은 <strong>6·8·9장</strong>이라고 명시. 다만 <strong>coprime(서로소) 개념은 Ch9 극배치의 해 존재 조건</strong>으로 계속 쓰이고, 최소실현(=controllable & observable)도 Ch6 Kalman 분해와 직결되니 <strong>개념만 가볍게 참고</strong>할 것. 손계산 연습은 6·8·9장에 집중.`, "warn")}
+<p class="lead">${tag("시험 제외", "concept")} coprimeness 판정과 minimal realization 차수 — 시험엔 안 나오지만 <strong>Ch9 극배치의 해 존재 조건이 바로 coprime</strong>이라 개념은 알아두면 좋음.</p>
 
 ${profMemo(`이 단원은 계산이 무겁지 않음. "공통근 있냐 없냐" 그 하나를 여러 방법으로 확인하는 게 전부임. 대신 <strong>왜</strong> 공통근이 중요한지 묻는 서술/개념 문제가 잘 나옴 — pole-zero cancellation → not minimal → Ch9 total stability 깨짐, 이 연결고리를 한 문장으로 말할 수 있으면 끝남.`)}
 

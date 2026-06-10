@@ -210,7 +210,40 @@ window.GLOSSARY = {
     short: "$G(s)$를 실현하는 최소 차수 $(A,B,C,D)$. ⟺ controllable & observable.",
     definition: `<p>전달함수 $G(s)$를 실현하는 상태공간 중 <strong>차수가 가장 작은</strong> 것. $(A,B,C,D)$가 minimal ⟺ $\\{A,B\\}$ controllable <strong>그리고</strong> $\\{A,C\\}$ observable.</p>
       <p>최소 차수 = $G(s)$를 기약분수로 줄였을 때 분모 차수.</p>`,
-    related: ["coprime", "controllability", "observability", "pole-zero-cancellation"]
+    related: ["coprime", "controllability", "observability", "pole-zero-cancellation", "kalman-decomposition"]
+  },
+  "kalman-decomposition": {
+    term: "Kalman Decomposition", ko: "칼만 분해", cat: "core",
+    short: "닮음변환으로 상태를 co / cō / c̄o / c̄ō 4부분으로 분해. $G(s)$엔 co만 나타남.",
+    definition: `<p><strong>정의.</strong> 시스템을 가제어/가관측 조합에 따라 네 부분으로 쪼갬:</p>
+      <ul>
+      <li><strong>co</strong> (ctrb &amp; obsv): $u$·$y$ 둘 다 연결 — 전달함수에 나타나는 유일한 부분.</li>
+      <li><strong>cō</strong> (ctrb, unobsv): $u$엔 연결, $y$엔 안 나타남.</li>
+      <li><strong>c̄o</strong> (unctrb, obsv): $u$로 못 움직임, $y$엔 나타남.</li>
+      <li><strong>c̄ō</strong>: $u$·$y$ 둘 다 단절(완전히 숨음).</li>
+      </ul>
+      <p><strong>핵심.</strong> $G(s)=C(sI-A)^{-1}B$는 <strong>co 부분만</strong> 반영(나머지는 약분). 그래서 <strong>minimal realization = co 부분</strong> ⟺ controllable &amp; observable.</p>`,
+    related: ["minimal-realization", "controllability", "observability", "pole-zero-cancellation"]
+  },
+  "jordan-form-test": {
+    term: "Jordan-form c/o Test", ko: "조던형 가제어·가관측 판정", cat: "core",
+    short: "같은 λ의 Jordan block별로 (B 마지막 행 / C 첫 열)의 independence로 c/o 판정.",
+    definition: `<p><strong>아이디어.</strong> Jordan형에서 c/o를 eigenvalue별로 읽음. 같은 $\\lambda$의 Jordan block 수 $=n-\\rho(A-\\lambda I)$(기하적 중복도).</p>
+      <ul>
+      <li><strong>Controllable</strong> ⟺ 각 block <strong>마지막 행</strong>에 대응하는 $B$ 행들이 independent.</li>
+      <li><strong>Observable</strong> ⟺ 각 block <strong>첫 열</strong>에 대응하는 $C$ 열들이 independent.</li>
+      </ul>
+      <p>한 $\\lambda$에 block이 $k$개면 그 $\\lambda$를 다 제어/관측하려면 입력/출력 채널이 ≥$k$개. block 1개면 해당 행/열이 0만 아니면 OK. PBH가 각 $\\lambda$에서 rank 보는 것과 동치.</p>`,
+    related: ["controllability", "observability", "pbh-test", "kalman-decomposition"]
+  },
+  "two-parameter-controller": {
+    term: "Two-parameter Controller", ko: "2-파라미터 제어기", cat: "core",
+    short: "$u=\\frac1A(Lr-My)$. 분모 $AD+MN=F$(극), 분자 $NL=E$(영점)를 독립으로 맞춤.",
+    definition: `<p><strong>구조.</strong> 레퍼런스 경로 $C_1=L/A$, 출력 궤환 경로 $C_2=M/A$로 따로:
+      $$u=\\frac1{A(s)}[L(s)r-M(s)y],\\quad \\hat g_o=\\frac{NL}{AD+MN}=\\frac{E}{F}.$$</p>
+      <p><strong>왜 쓰나.</strong> 분모 $AD+MN=F$(극)와 분자 $NL=E$(영점)를 <strong>독립으로</strong> 잡아 전달함수 전체를 목표모델 $G_o$에 맞춤(model matching). one-parameter $B/A$는 분자 $NB$가 분모와 엮여 자유도 부족.</p>
+      <p><strong>절차.</strong> ① $L=E/N$ → ② Diophantine $AD+MN=F$를 $A,M$에 대해 계수비교로 풀이.</p>`,
+    related: ["model-matching", "coprime-fraction", "pole-placement", "implementable"]
   },
   "coprime": {
     term: "Coprime", ko: "서로소", cat: "core",

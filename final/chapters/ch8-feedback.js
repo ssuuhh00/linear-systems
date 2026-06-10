@@ -48,6 +48,27 @@ ${tryIt("", `$A=\\begin{bmatrix}0&1\\\\0&-3\\end{bmatrix},\\ B=\\begin{bmatrix}1
   }
 ])}
 
+${tryIt("족보 2013 Q3-a", `$A=\\begin{bmatrix}-1&1\\\\0&1\\end{bmatrix},\\ B=\\begin{bmatrix}0\\\\1\\end{bmatrix},\\ C=[\\,1\\ 0\\,]$. 폐루프 극을 $\\{-2,-3\\}$으로 만드는 state feedback $K$를 구하라. <em>(같은 시스템이 b·c·d로 이어짐 — Ch8 tracking, observer, Ch9 output feedback에서 계속.)</em>`, [
+  {
+    title: "controllable 확인",
+    body: `$AB=\\begin{bmatrix}-1&1\\\\0&1\\end{bmatrix}\\begin{bmatrix}0\\\\1\\end{bmatrix}=\\begin{bmatrix}1\\\\1\\end{bmatrix}$ → $\\mathcal C=\\begin{bmatrix}0&1\\\\1&1\\end{bmatrix}$, $\\det=-1\\ne0$ → controllable ✓. (eigenvalue $-1,\\,1$ — $\\lambda{=}1$이 unstable이라 안정화가 필요.)`
+  },
+  {
+    title: "$A-BK$ 전개",
+    body: `$K=[\\,k_1\\ k_2\\,]$, $BK=\\begin{bmatrix}0&0\\\\k_1&k_2\\end{bmatrix}$ →
+    $$A-BK=\\begin{bmatrix}-1&1\\\\-k_1&1-k_2\\end{bmatrix}.$$
+    $$\\det(sI-(A-BK))=(s+1)(s-1+k_2)+k_1=s^2+k_2\\,s+(k_2-1+k_1).$$`
+  },
+  {
+    title: "계수 비교 → $K$",
+    body: `원하는 $\\Delta_d=(s+2)(s+3)=s^2+5s+6$.<br>
+    • $s^1$: $k_2=5$<br>
+    • $s^0$: $k_2-1+k_1=6\\Rightarrow 4+k_1=6\\Rightarrow k_1=2$
+    $$\\boxed{K=[\\,2\\ \\ 5\\,]}$$
+    검산: $A-BK=\\begin{bmatrix}-1&1\\\\-2&-4\\end{bmatrix}$, $\\text{tr}=-5,\\ \\det=6$ → $s^2+5s+6$ ✓.`
+  }
+])}
+
 <h2>3. 방법 2 — Lyapunov / Sylvester 방정식 (다입력도 가능)</h2>
 ${defCard("Sylvester 방정식 방법", `
 원하는 eigenvalue를 가진 행렬 $F$를 먼저 정하고 ${term("lyapunov-equation")} $AT-TF=B\\bar K$를 풀어 $T$를 구한 뒤 $K=\\bar K\\,T^{-1}$. 그러면
@@ -58,6 +79,8 @@ $$(A-BK)T=TF \\;\\Rightarrow\\; A-BK=TFT^{-1}$$
 <br><br>
 또 $F$의 eigenvalue가 $A$의 eigenvalue와 <strong>겹치면 안 됨</strong> — 겹치면 $AT-TF=B\\bar K$가 유일해를 못 가짐(실무에선 $-1\\to-1.01$로 살짝 옮겨 회피). 방법 1이 단일입력 손계산용이라면, 방법 2는 선형 대수방정식이라 차수가 커지거나 <strong>다입력</strong>일 때 전산으로 풀기 좋음.
 `)}
+
+${note(`<strong>📝 족보 2015 Q4 (서술형):</strong> "Lyapunov 방정식으로 eigenvalue를 배치하는 방법을 설명하라." → 위 4단계(① 원하는 극의 $F$ 설계 → ② $\\{F,\\bar K\\}$ observable하게 $\\bar K$ → ③ $AT-TF=B\\bar K$로 $T$ → ④ $K=\\bar K T^{-1}$)를 적고, 조건($A,F$ 공통 eigenvalue 금지, $T$ nonsingular은 necessary)을 덧붙이면 만점.`, "tip")}
 
 <h2>4. Feedforward gain — 정상상태 추종</h2>
 ${defCard("Feedforward gain $p$", `

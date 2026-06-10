@@ -55,6 +55,28 @@ ${tryIt("", `$A=\\begin{bmatrix}0&1\\\\-2&-3\\end{bmatrix},\\ C=[1\\ \\ 0]$, 원
   }
 ])}
 
+${tryIt("족보 2013 Q3-c", `같은 시스템 $A=\\begin{bmatrix}-1&1\\\\0&1\\end{bmatrix},\\ C=[\\,1\\ 0\\,]$에서 estimator 극 $\\{-6,-10\\}$인 observer gain $L$을 구하라.`, [
+  {
+    title: "observable 확인",
+    body: `$CA=[\\,1\\ 0\\,]\\begin{bmatrix}-1&1\\\\0&1\\end{bmatrix}=[\\,-1\\ 1\\,]$ → $\\mathcal O=\\begin{bmatrix}1&0\\\\-1&1\\end{bmatrix}$, $\\det=1\\ne0$ → observable ✓.`
+  },
+  {
+    title: "$A-LC$ 전개",
+    body: `$L=\\begin{bmatrix}l_1\\\\l_2\\end{bmatrix}$, $LC=\\begin{bmatrix}l_1&0\\\\l_2&0\\end{bmatrix}$ →
+    $$A-LC=\\begin{bmatrix}-1-l_1&1\\\\-l_2&1\\end{bmatrix},\\quad \\det(sI-\\cdot)=s^2+l_1 s+(l_2-1-l_1).$$`
+  },
+  {
+    title: "계수 비교 → $L$",
+    body: `극 $\\{-6,-10\\}$ → $\\Delta_d=(s+6)(s+10)=s^2+16s+60$.<br>
+    • $s^1$: $l_1=16$<br>
+    • $s^0$: $l_2-1-l_1=60\\Rightarrow l_2=60+1+16=77$
+    $$\\boxed{L=\\begin{bmatrix}16\\\\77\\end{bmatrix}}$$
+    estimator 극($-6,-10$)을 제어 극($-2,-3$, Q3-a)보다 훨씬 왼쪽에 둬 추정이 먼저 수렴 — $L$은 소프트웨어라 크게 잡아도 비용 없음.`
+  }
+])}
+
+${note(`<strong>📝 족보 2015 Q5 (서술형):</strong> "state estimator의 일반구조와 estimator 극 배치 방법을 설명하라." → ① 구조 $\\dot{\\hat x}=(A-LC)\\hat x+Bu+Ly$(§2) → ② 오차 $\\dot e=(A-LC)e$(입력 무관) → ③ $\\{A,C\\}$ observable이면 $A-LC$ 극 임의배치, duality로 state feedback처럼 계수비교(§3·§4)로 $L$ 결정.`, "tip")}
+
 <h2>5. Reduced-order Estimator</h2>
 ${defCard("Reduced-order Estimator", `
 출력 $y$가 $q$개면 그 $q$개 상태는 이미 직접 알 수 있으니, 나머지 $n-q$개만 추정하면 됨 — ${term("reduced-order-estimator")}는 차원이 $n-q$로 줄어듦($F$는 $(n-q)$차 stable, eigenvalue가 $A$와 겹치면 안 됨).

@@ -46,6 +46,26 @@ ${defCard("강인성의 정체", `
 <strong>적분기는 다름.</strong> "에러가 0이 될 때까지 민다"는 원리는 파라미터가 변해도 안 변하니, 정확한 $p$를 몰라도/모델이 좀 틀려도 $y\\to r$이 유지됨. 이게 ${term("robust-tracking", "robust tracking")} — 모델 오차에 강인하다는 뜻. 그래서 실무 표준이 적분제어(PID의 I항)임. 정리하면 <strong>$p$는 모델을 정확히 알아야</strong> 맞고, <strong>적분제어는 모델이 틀려도</strong> 정상상태 추종/외란제거가 유지됨.
 `)}
 
+${tryIt("족보 2013 Q3-b", `Q3-a의 $A=\\begin{bmatrix}-1&1\\\\0&1\\end{bmatrix},\\ B=\\begin{bmatrix}0\\\\1\\end{bmatrix},\\ C=[1\\ 0]$에서 구한 $K=[2\\ 5]$($A-BK$ 극 $-2,-3$)에, <strong>feedforward gain</strong>을 붙여 step을 추종하게 하라. $u=pr-Kx$의 $p$는?`, [
+  {
+    title: "폐루프 DC gain $G_{cl}(0)$",
+    body: `$A-BK=\\begin{bmatrix}-1&1\\\\-2&-4\\end{bmatrix}$ ($\\det=6$). DC gain $G_{cl}(0)=-C(A-BK)^{-1}B$.<br>
+    $(A-BK)^{-1}=\\tfrac16\\begin{bmatrix}-4&-1\\\\2&-1\\end{bmatrix}$ → $(A-BK)^{-1}B=\\tfrac16\\begin{bmatrix}-1\\\\-1\\end{bmatrix}$ → $C\\cdot=-\\tfrac16$.<br>
+    $G_{cl}(0)=-(-\\tfrac16)=\\tfrac16$.`
+  },
+  {
+    title: "feedforward gain $p$",
+    body: `$$p=\\frac{1}{G_{cl}(0)}=\\frac{1}{1/6}=6.\\qquad u=6r-[\\,2\\ 5\\,]x.$$
+    ${term("final-value-theorem", "최종값 정리")}로 step $r=1/s$에 $y(\\infty)=p\\,G_{cl}(0)=1$ → 정확 추종 ✓.`
+  },
+  {
+    title: "단, robust는 아님",
+    body: `이 $p=6$은 <strong>플랜트 값을 정확히 알 때만</strong> 맞음. $A,B$가 변하면 $G_{cl}(0)$이 바뀌어 다시 어긋남(정상상태 오차 발생). 모델 변동에도 추종하려면 §2의 <strong>적분제어(internal model)</strong>를 써야 함 — 그게 robust tracking.`
+  }
+])}
+
+${note(`<strong>📝 족보 2015 Q6 (서술형):</strong> "disturbance가 있는 robust tracking 시스템을 얻는 방법을 설명하라." → ① 에러 적분 상태 $x_a=\\int(r-y)$ augment(=internal model $1/s$) → ② 증강 플랜트 극배치(Thm 8.5: controllable & $s=0$ zero 없음) → ③ 적분기라 파라미터 변동·step 외란에도 $y\\to r$ 유지. (전달함수 관점은 Ch9 internal model — 제어기 분모에 $\\phi(s)$.)`, "tip")}
+
 <h2>5. 체크</h2>
 ${mcQuiz(
   "step뿐 아니라 ramp·sinusoid 등 여러 종류 레퍼런스를 추종하는 제어는?",

@@ -73,7 +73,49 @@ ${defCard("극배치 vs Model Matching", `
 </table>
 `)}
 
-<h2>7. 시험 직전 체크</h2>
+<h2>7. Two-parameter 제어기 구현 (A·L·M)</h2>
+${defCard("Two-parameter configuration", `
+Model matching을 실제로 구현하는 구조 — 입력을 <strong>레퍼런스 $r$ 경로</strong>와 <strong>출력 $y$ 궤환 경로</strong> 두 곳에서 따로 잡음(${term("two-parameter-controller", "two-parameter 제어기")}):
+$$u=\\frac1{A(s)}\\big[L(s)\\,r-M(s)\\,y\\big],\\qquad C_1=\\frac{L}{A},\\quad C_2=\\frac{M}{A}.$$
+닫으면 $r\\to y$ 전달함수는
+$$\\hat g_o=\\frac{N\\,L}{A\\,D+M\\,N}=\\frac{E}{F}.$$
+<strong>분모 $AD+MN=F$</strong>는 극(원하는 폐루프 극) — ${term("coprime-fraction", "극배치")}와 똑같이 $A,M$으로 맞춤. <strong>분자 $NL=E$</strong>는 영점 — $L$로 따로 맞춤. 분자·분모를 <strong>독립으로</strong> 잡을 수 있어 전달함수 전체($G_o$)를 목표모델에 맞추는 게 가능함(one-parameter $B/A$는 분자 $NB$가 분모와 엮여 자유도가 부족).
+<br><br>
+<strong>절차(교수님: "일단 $N$으로 나눠"):</strong> ① 목표 $\\hat g_o=\\dfrac{E}{F}$에서 <strong>$L=E/N$</strong>(implementable이면 $N$이 $E$를 나눠떨어뜨림) → ② Diophantine <strong>$AD+MN=F$</strong>를 $A,M$에 대해 풀이(계수 비교).
+`)}
+
+${tryIt("", `플랜트 $G(s)=\\dfrac{1}{s-1}$ (불안정 극 $s=1$)을 목표모델 $G_o(s)=\\dfrac{6}{(s+2)(s+3)}$ (step DC gain 1)에 맞추는 two-parameter 제어기 $A,L,M$을 구하라.`, [
+  {
+    title: "$N,D$와 목표 $E,F$ 분리",
+    body: `$N=1,\\ D=s-1$ ($n=1$). 목표 $G_o=\\dfrac{E}{F}$에서 $E=6,\\ F=(s+2)(s+3)=s^2+5s+6$.<br>
+    implementable 확인: proper ✓, 플랜트 zero 없음($N=1$)이라 물려받을 RHP zero도 없음 ✓.`
+  },
+  {
+    title: "① $L=E/N$",
+    body: `$$L=\\frac{E}{N}=\\frac{6}{1}=6.$$
+    $N=1$이라 그대로 떨어짐. (플랜트에 zero가 있으면 그 인수가 $E$에 들어있어 약분돼 $L$이 다항식이 됨 — 그게 implementable의 'no leakage'.)`
+  },
+  {
+    title: "② Diophantine $AD+MN=F$ 세우기",
+    body: `제어기 차수 $\\deg A=1$로 잡음(monic $A=s+a_0$, $M=m_1s+m_0$). well-posed 위해 $\\deg M\\le\\deg A$.
+    $$\\underbrace{(s+a_0)(s-1)}_{AD}+\\underbrace{(m_1s+m_0)}_{MN}=s^2+(a_0-1+m_1)s+(m_0-a_0).$$`
+  },
+  {
+    title: "계수 비교 → $A,M$",
+    body: `$F=s^2+5s+6$과 비교:<br>
+    • $s^1$: $a_0-1+m_1=5$<br>
+    • $s^0$: $m_0-a_0=6$<br>
+    미지수 3개($a_0,m_1,m_0$)·식 2개 → <strong>$a_0$가 자유</strong>(=제어기 자체 극, stable·빠르게 자유선택). $a_0=4$로 잡으면 $m_1=2,\\ m_0=10$.
+    $$\\boxed{A=s+4,\\quad L=6,\\quad M=2s+10}$$`
+  },
+  {
+    title: "제어기 + 검산",
+    body: `$$u=\\frac{1}{s+4}\\big[\\,6\\,r-(2s+10)\\,y\\,\\big],\\quad C_1=\\frac{6}{s+4},\\ C_2=\\frac{2s+10}{s+4}.$$
+    검산: $\\hat g_o=\\dfrac{NL}{AD+MN}=\\dfrac{1\\cdot6}{s^2+5s+6}=\\dfrac{6}{(s+2)(s+3)}=G_o$ ✓. DC gain $=6/6=1$ → step 완벽 추종. 극배치(one-parameter)는 극만 맞추고 DC gain은 따로 보정해야 했지만, two-parameter는 <strong>분자까지 한 번에</strong> 목표모델과 일치.`
+  }
+])}
+
+<h2>8. 시험 직전 체크</h2>
 ${mcQuiz(
   "다음 중 implementable transfer function의 3조건이 아닌 것은?",
   [
