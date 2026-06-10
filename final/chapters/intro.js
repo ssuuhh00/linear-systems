@@ -8,7 +8,7 @@ ${profMemo(`
   <li><strong>범위: 중간 이후 전부</strong> — <a onclick="window.go('ch6-controllability')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Ch6 가제어/가관측</a> · <a onclick="window.go('ch8-feedback')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Ch8 상태궤환·관측기</a> · <a onclick="window.go('ch9-poleplacement')" style="cursor:pointer;color:var(--accent);text-decoration:underline;">Ch9 극배치·모델매칭</a>.</li>
   <li><strong>"계산하고 풀 수 있는 문제 낼 거니까."</strong> 개념 이해 + 간단한 적용. 문제 안 꼬음.</li>
   <li><strong>"버리는 건 안 돼."</strong> 한 단원도 통째로 포기 금지 — 골고루 출제.</li>
-  <li><strong>계산기 없이</strong> 손으로 풀 수 있는 수준. 행렬은 대부분 <strong>2×2, 많아야 3×3</strong>. (컴퓨터 지참은 가능)</li>
+  <li><strong>계산기 없이</strong> 손으로 풀 수 있는 수준. 행렬은 대부분 <strong>2×2, 많아야 3×3</strong>.</li>
   <li><strong>증명 노가다 없음.</strong> 표준 절차를 정확히 적용하는 게 핵심.</li>
 </ul>
 `)}
