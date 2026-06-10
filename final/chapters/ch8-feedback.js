@@ -75,7 +75,7 @@ ${defCard("Sylvester 방정식 방법", `
 $$(A-BK)T=TF \\;\\Rightarrow\\; A-BK=TFT^{-1}$$
 이 ${term("similarity-transform", "닮음변환")}이라 $A-BK$의 eigenvalue $=$ $F$의 eigenvalue. (유도: $\\bar K=KT$를 대입하면 $AT-BKT=TF$, 양변 오른쪽에 $T^{-1}$.)
 <br><br>
-<strong>교수님 반복 강조 — necessary vs sufficient.</strong> "$\\{A,B\\}$ controllable & $\\{A,F\\}$ observable이면 $T$가 nonsingular"는 <strong>necessary 조건이지 sufficient가 아님.</strong> 만족해도 $T$가 singular일 수 있고, 그러면 $\\bar K$를 다른 값으로 다시 잡아 재시도. 단답으로 이 구분을 묻기도 하니 문장째 외워둘 것.
+<strong>교수님 반복 강조 — necessary vs sufficient.</strong> "$\\{A,B\\}$ controllable & $\\{F,\\bar K\\}$ observable이면 $T$가 nonsingular"는 <strong>necessary 조건이지 sufficient가 아님.</strong> 만족해도 $T$가 singular일 수 있고, 그러면 $\\bar K$를 다른 값으로 다시 잡아 재시도. 단답으로 이 구분을 묻기도 하니 문장째 외워둘 것.
 <br><br>
 또 $F$의 eigenvalue가 $A$의 eigenvalue와 <strong>겹치면 안 됨</strong> — 겹치면 $AT-TF=B\\bar K$가 유일해를 못 가짐(실무에선 $-1\\to-1.01$로 살짝 옮겨 회피). 방법 1이 단일입력 손계산용이라면, 방법 2는 선형 대수방정식이라 차수가 커지거나 <strong>다입력</strong>일 때 전산으로 풀기 좋음.
 `)}

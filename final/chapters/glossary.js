@@ -173,12 +173,12 @@ window.GLOSSARY = {
     term: "Observability", ko: "가관측성", cat: "core",
     short: "출력 $y$만 보고 초기상태 $\\mathbf x_0$를 알아낼 수 있나?",
     definition: `<p>유한시간 동안의 입력 $u$와 출력 $y$만으로 초기상태 $\\mathbf x_0$를 <strong>유일하게</strong> 결정할 수 있으면 observable. (초기치 알면 입력으로 전구간 상태 결정.)</p>
-      <p>판정: 가관측성 행렬 $\\mathcal O=[C;CA;\\cdots;CA^{n-1}]$가 rank $n$. PBH: 모든 $\\lambda$에서 $\\rho\\begin{bmatrix}A-\\lambda I\\\\C\\end{bmatrix}=n$.</p>`,
+      <p>판정: 가관측성 행렬 $\\mathcal O=\\begin{bmatrix}C\\\\CA\\\\\\vdots\\\\CA^{n-1}\\end{bmatrix}$가 rank $n$. PBH: 모든 $\\lambda$에서 $\\rho\\begin{bmatrix}A-\\lambda I\\\\C\\end{bmatrix}=n$.</p>`,
     related: ["observability-matrix", "duality", "controllability", "detectable", "state-estimator"]
   },
   "observability-matrix": {
     term: "Observability Matrix", ko: "가관측성 행렬", cat: "core",
-    short: "$\\mathcal O=[\\,C;\\ CA;\\ \\cdots;\\ CA^{n-1}\\,]$ (세로로 쌓음).",
+    short: "$\\mathcal O=\\begin{bmatrix}C\\\\CA\\\\\\vdots\\\\CA^{n-1}\\end{bmatrix}$ (세로로 쌓음).",
     definition: `<p>$$\\mathcal O=\\begin{bmatrix}C\\\\CA\\\\CA^2\\\\\\vdots\\\\CA^{n-1}\\end{bmatrix},\\qquad \\rho(\\mathcal O)=n\\ \\Leftrightarrow\\ \\text{observable}$$</p>`,
     related: ["observability", "duality"]
   },
@@ -329,7 +329,7 @@ window.GLOSSARY = {
     term: "Lyapunov / Sylvester Equation", ko: "리아프노프·실베스터 방정식", cat: "core",
     short: "$AT-TF=B\\bar K$. 풀어서 $K=\\bar K T^{-1}$로 극배치.",
     definition: `<p>극배치의 또 다른 방법. 원하는 eigenvalue를 가진 $F$를 정하고 $AT-TF=B\\bar K$ (Sylvester 방정식)를 풀어 $T$ → $K=\\bar K T^{-1}$. 그러면 $A-BK=TFT^{-1}$.</p>
-      <p>조건: $F$의 eigenvalue가 $A$와 겹치면 안 됨. $\\{A,B\\}$ ctrb & $\\{A,F\\}$ obsv는 $T$ nonsingular의 <strong>necessary</strong> 조건(sufficient 아님).</p>`,
+      <p>조건: $F$의 eigenvalue가 $A$와 겹치면 안 됨. $\\{A,B\\}$ ctrb & $\\{F,\\bar K\\}$ obsv는 $T$ nonsingular의 <strong>necessary</strong> 조건(sufficient 아님).</p>`,
     related: ["pole-placement", "state-feedback", "controllability-gramian"]
   },
   "state-estimator": {

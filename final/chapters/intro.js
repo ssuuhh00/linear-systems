@@ -28,7 +28,7 @@ ${profMemo(`
   <tr><td><strong>Coprime fraction 제어기 풀이</strong> (Sylvester 행렬)</td><td>Ch 9</td><td>중</td><td>${tag("매우 유력", "must")}</td></tr>
   <tr><td>Controllability / Observability 판정</td><td>Ch 6</td><td>하~중</td><td>${tag("매우 유력", "must")}</td></tr>
   <tr><td>State feedback $K$로 극배치</td><td>Ch 8</td><td>중</td><td>${tag("유력", "exam")}</td></tr>
-  <tr><td>Stabilizable / Detectable 설명+판정</td><td>Ch 6</td><td>중</td><td>${tag("유력", "exam")}</td></tr>
+  <tr><td>Stabilizable / Detectable 설명+판정</td><td>Ch 6</td><td>중</td><td>${tag("시험 제외", "concept")}</td></tr>
   <tr><td>Observer gain $L$ 설계</td><td>Ch 8</td><td>중</td><td>${tag("자주", "exam")}</td></tr>
   <tr><td>Robust tracking / Internal model 설계</td><td>Ch 9</td><td>중</td><td>${tag("자주", "exam")}</td></tr>
   <tr><td>개념 정의 (well-posed / total stability / implementable)</td><td>Ch 9</td><td>하</td><td>${tag("가끔", "concept")}</td></tr>

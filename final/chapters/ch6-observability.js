@@ -67,7 +67,7 @@ ${tryIt("", `$A=\\begin{bmatrix}0 & 1 \\\\ -2 & -3\\end{bmatrix},\\ C=[1\\ \\ 0]
 <table>
   <tr><th></th><th>Controllability</th><th>Observability</th></tr>
   <tr><td>질문</td><td>$u$로 상태를 만들 수 있나</td><td>$y$로 상태를 알 수 있나</td></tr>
-  <tr><td>판정행렬</td><td>$[B\\ AB\\cdots A^{n-1}B]$ (가로)</td><td>$[C;CA;\\cdots;CA^{n-1}]$ (세로)</td></tr>
+  <tr><td>판정행렬</td><td>$[B\\ AB\\cdots A^{n-1}B]$ (가로)</td><td>$\\begin{bmatrix}C\\\\CA\\\\\\vdots\\\\CA^{n-1}\\end{bmatrix}$ (세로)</td></tr>
   <tr><td>PBH</td><td>$\\rho([A-\\lambda I\\ B])=n$</td><td>$\\rho\\begin{bmatrix}A-\\lambda I\\\\C\\end{bmatrix}=n$</td></tr>
   <tr><td>쌍대</td><td>$\\{A^T,B^T\\}$ obsv</td><td>$\\{A^T,C^T\\}$ ctrb</td></tr>
 </table>
@@ -121,7 +121,7 @@ ${mcQuiz(
 
 ${mcQuiz(
   "단일출력 $n\\times n$ 시스템의 가관측성 판정으로 옳은 것은?",
-  ["$\\mathcal O=[C;CA;\\cdots;CA^{n-1}]$의 $\\det\\ne0$", "$C$가 영벡터가 아니면 항상 observable", "$A$가 stable이면 observable", "$CB\\ne0$이면 observable"],
+  ["$\\mathcal O=\\begin{bmatrix}C\\\\CA\\\\\\vdots\\\\CA^{n-1}\\end{bmatrix}$의 $\\det\\ne0$", "$C$가 영벡터가 아니면 항상 observable", "$A$가 stable이면 observable", "$CB\\ne0$이면 observable"],
   0,
   "단일출력이면 $\\mathcal O$가 $n\\times n$ 정방이라 $\\det\\ne0$ ⟺ full rank ⟺ observable. 나머지는 충분조건이 아님."
 )}
