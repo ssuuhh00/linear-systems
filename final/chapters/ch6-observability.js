@@ -74,7 +74,11 @@ ${tryIt("", `$A=\\begin{bmatrix}0 & 1 \\\\ -2 & -3\\end{bmatrix},\\ C=[1\\ \\ 0]
 
 <h2>7. Jordan form으로 c/o 판정 (교수님 강조)</h2>
 ${defCard("Jordan block 독립성 판정", `
-대각화·Jordan형으로 바꿔놓으면 c/o를 <strong>eigenvalue별로</strong> 눈으로 읽을 수 있음(${term("jordan-form-test", "Jordan 판정")}).
+대각화·Jordan형으로 바꿔놓으면 c/o를 <strong>eigenvalue별로</strong> 눈으로 읽을 수 있음.
+<br><br>
+<strong>Jordan형이 뭔가:</strong> 닮음변환으로 행렬을 <strong>최대한 대각에 가깝게</strong> 만든 표준형임. 대각엔 고유값 $\\lambda$가 오고, 일부 $\\lambda$ 바로 위(초대각선)에 $1$이 붙은 <strong>Jordan block</strong>들이 블록대각으로 늘어선 모양. 고유벡터가 모자라 <strong>대각화가 안 되는</strong> 행렬도 이 형태로는 항상 바꿀 수 있어서, 대각화의 일반판이라고 보면 됨.
+<br><br>
+<strong>예시:</strong> $A=\\begin{bmatrix}1&1\\\\-1&3\\end{bmatrix}$는 특성다항식이 $(\\lambda-2)^2$라 $\\lambda=2$가 중복인데, $\\rho(A-2I)=1$ → 독립 고유벡터가 <strong>1개뿐</strong>(부족) → <strong>대각화 불가</strong>. 그래서 대각이 아니라 크기-2 block 하나인 Jordan형 $J=\\begin{bmatrix}2&1\\\\0&2\\end{bmatrix}$이 됨 — 초대각선의 $1$이 "고유벡터가 모자라다"는 표식임. 반대로 고유값이 서로 <strong>다 다르면</strong> block이 전부 크기 1이라 $J$는 그냥 <strong>대각행렬</strong>(=대각화)이고 $1$은 안 나옴.
 <br><br>
 같은 eigenvalue $\\lambda$에 ${term("rank")}-결손만큼 <strong>Jordan block이 여러 개</strong> 생김(block 수 $=$ 기하적 중복도 $=n-\\rho(A-\\lambda I)$). 그 $\\lambda$에 대해:
 <ul>
@@ -104,6 +108,22 @@ ${tryIt("", `$$\\dot{\\mathbf x}=\\begin{bmatrix}1&1&0\\\\0&1&0\\\\0&1&2\\end{bm
   {
     title: "어느 mode가 안 보이나 — PBH",
     body: `$\\lambda=2$: $\\begin{bmatrix}A-2I\\\\C\\end{bmatrix}=\\begin{bmatrix}-1&1&0\\\\0&-1&0\\\\0&1&0\\\\1&0&0\\end{bmatrix}$ → 3열 전부 0 → rank $2<3$ → <strong>$\\lambda=2$ mode가 unobservable</strong>. 출력 $y=x_1$인데 $\\lambda=2$ mode는 $x_3$ 방향이라 $y$에 전혀 안 잡힘. 앞 단계에서 이 mode는 controllable이었으니 결국 <strong>cō (controllable · unobservable)</strong> 부분임.`
+  },
+  {
+    title: "🔁 같은 문제를 Jordan으로 — 변환 $Q$ 만들기",
+    body: `같은 답을 Jordan 방식으로도 확인해보자. $\\lambda=1$은 크기-2 block 하나라 <strong>사슬(chain)</strong>이 필요함.<br>
+    $\\lambda=1$ 고유벡터 $(A-I)v_1=0$ → $v_1=\\begin{bmatrix}1\\\\0\\\\0\\end{bmatrix}$, 사슬 $(A-I)v_2=v_1$ → $v_2=\\begin{bmatrix}0\\\\1\\\\-1\\end{bmatrix}$.<br>
+    $\\lambda=2$ 고유벡터 $(A-2I)v_3=0$ → $v_3=\\begin{bmatrix}0\\\\0\\\\1\\end{bmatrix}$.<br>
+    열로 쌓으면
+    $$Q=[\\,v_1\\ v_2\\ v_3\\,]=\\begin{bmatrix}1&0&0\\\\0&1&0\\\\0&-1&1\\end{bmatrix},\\qquad Q^{-1}=\\begin{bmatrix}1&0&0\\\\0&1&0\\\\0&1&1\\end{bmatrix}.$$`
+  },
+  {
+    title: "Jordan 좌표의 $\\bar B,\\bar C$로 c/o 읽기",
+    body: `$B,C$도 같은 좌표로 옮김:
+    $$J=Q^{-1}AQ=\\begin{bmatrix}1&1&0\\\\0&1&0\\\\0&0&2\\end{bmatrix},\\quad \\bar B=Q^{-1}B=\\begin{bmatrix}0\\\\1\\\\1\\end{bmatrix},\\quad \\bar C=CQ=[\\,1\\ 0\\ 0\\,].$$
+    <strong>Controllable</strong> — 각 block <strong>마지막 행</strong>의 $\\bar B$: $\\lambda=1$ block(행 1·2)의 마지막은 행2 $=1\\ne0$ ✓, $\\lambda=2$ block(행 3) $=1\\ne0$ ✓ → <strong>controllable</strong>.<br>
+    <strong>Observable</strong> — 각 block <strong>첫 열</strong>의 $\\bar C$: $\\lambda=1$ block(열 1·2)의 첫 열은 열1 $=1\\ne0$ ✓, $\\lambda=2$ block(열 3) $=0$ ✗ → <strong>$\\lambda=2$가 unobservable</strong>.<br>
+    PBH로 낸 결과와 정확히 일치 — $\\bar C$의 $\\lambda=2$ 자리(열 3)가 $0$이라 출력이 그 block을 전혀 못 봄(<strong>cō</strong>).`
   },
   {
     title: "결론",
